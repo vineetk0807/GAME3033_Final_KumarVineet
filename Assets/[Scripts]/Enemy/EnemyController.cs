@@ -7,6 +7,12 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
 
+    public enum EnemyMeshRenderer
+    {
+        JOINTS,
+        SURFACE,
+    }
+
     [Header("Player Reference")] 
     public Transform playerLocation;
 
@@ -20,13 +26,16 @@ public class EnemyController : MonoBehaviour
     public bool isFollowing = false;
 
     private CapsuleCollider _collider;
-    public List<SkinnedMeshRenderer> meshRenderer;
+    
 
     [Header("Shatter effect")]
     public GameObject ShatterEffectBotPrefab;
     public float shatterForce = 10f;
     private GameObject shatteredXbot = null;
 
+    [Header("Materials")]
+    public List<SkinnedMeshRenderer> meshRenderer;
+    public List<Material> meshMaterialsTransparent;
 
     private bool isDestroyed = false;
 
@@ -64,11 +73,12 @@ public class EnemyController : MonoBehaviour
         isDestroyed = true;
 
         agent.isStopped = true;
+        _enemyAnimator.speed = 0f;
 
-        // deactivate mesh renderer
-        foreach (var mesh in meshRenderer)
+        // change material of mesh renderer
+        for (int i = 0; i < meshRenderer.Count; i++)
         {
-            mesh.enabled = false;
+            meshRenderer[i].material = meshMaterialsTransparent[i];
         }
 
         // disable the main collider
