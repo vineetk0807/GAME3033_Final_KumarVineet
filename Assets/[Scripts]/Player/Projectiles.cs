@@ -10,6 +10,9 @@ public class Projectiles : MonoBehaviour
 
     private float timer = 0f;
 
+    private bool isGoForDestroy = false;
+    private float destroyTimer = 0f;
+
     private void Start()
     {
         particleSystem = GetComponent<ParticleSystem>();
@@ -28,6 +31,13 @@ public class Projectiles : MonoBehaviour
         for (int i = 0; i < numCollisionEvents; i++)
         {
             Debug.Log(other.gameObject.name);
+            if (other.gameObject.CompareTag("Enemy"))
+            {
+                other.gameObject.GetComponent<EnemyController>().DestroyEnemy();
+            }
+
+            isGoForDestroy = true;
+            destroyTimer = timer;
         }
     }
 
@@ -42,6 +52,15 @@ public class Projectiles : MonoBehaviour
             {
                 Destroy(gameObject);
             }
+
+            // if collided with something
+            if(isGoForDestroy)
+            {
+                if (timer - destroyTimer >= 0.2f)
+                {
+                    Destroy(gameObject);
+                }
+            }            
         }
     }
 }
