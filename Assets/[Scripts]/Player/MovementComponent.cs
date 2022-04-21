@@ -37,6 +37,12 @@ public class MovementComponent : MonoBehaviour
     [SerializeField]
     private Transform FollowTarget;
 
+    // Attacking
+    [Header("Attacks")] 
+    public GameObject Projectile;
+    public Transform ProjectileSpawnLocation;
+    private bool isAttacking = false;
+
     // Animations
     [Header("Animations")]
     public readonly int movementXHash = Animator.StringToHash("MovementX");
@@ -44,6 +50,7 @@ public class MovementComponent : MonoBehaviour
     public readonly int isJumpingHash = Animator.StringToHash("IsJumping");
     public readonly int isRunningHash = Animator.StringToHash("IsRunning");
     public readonly int isFallingHash = Animator.StringToHash("IsFalling");
+    public readonly int isAttackingHash = Animator.StringToHash("IsAttacking");
     public readonly int isDyingHash = Animator.StringToHash("IsDying");
 
 
@@ -112,6 +119,8 @@ public class MovementComponent : MonoBehaviour
         // Position update vector with current Speed
         Vector3 movementDirection = moveDirection * (currentSpeed * Time.deltaTime);
         transform.position += movementDirection;
+
+        ProjectileSpawnLocation.rotation = transform.rotation;
     }
 
 
@@ -246,13 +255,54 @@ public class MovementComponent : MonoBehaviour
     /// <param name="value"></param>
     public void OnPause(InputValue value)
     {
-        _playerController.isPaused = value.isPressed;
-        inputVector = Vector2.zero;
-        lookInput = Vector2.zero;
-        //GameManager.GetInstance().pausePanel.SetActive(true);
-        Time.timeScale = 0f;
-        Cursor.visible = true;
+        //_playerController.isPaused = value.isPressed;
+        //inputVector = Vector2.zero;
+        //lookInput = Vector2.zero;
+        ////GameManager.GetInstance().pausePanel.SetActive(true);
+        //Time.timeScale = 0f;
+        //Cursor.visible = true;
     }
+
+
+    /// <summary>
+    /// On Attack function
+    /// </summary>
+    /// <param name="value"></param>
+    public void OnAttack(InputValue value)
+    {
+        if (isAttacking)
+        {
+            isAttacking = false;
+            return;
+        }
+
+        isAttacking = value.isPressed;
+
+        if (isAttacking)
+        {
+            StartAttack();
+        }
+    }
+
+
+    /// <summary>
+    /// Actually Trigger the attack animation
+    /// </summary>
+    private void StartAttack()
+    {
+        _playerController.isAttacking = true;
+        _playerAnimator.SetTrigger(isAttackingHash);
+    }
+
+    /// <summary>
+    /// Spawns Projectiles
+    /// </summary>
+    public void SpawnProjectile()
+    {
+        GameObject bullet = Instantiate(Projectile, ProjectileSpawnLocation.position, ProjectileSpawnLocation.rotation);
+
+    }
+
 
     //-------------------------------------- Collision Functions --------------------------------------//
 

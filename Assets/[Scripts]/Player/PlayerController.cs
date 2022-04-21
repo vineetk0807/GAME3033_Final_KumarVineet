@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public bool isRunning;
     public bool isUsing;
     public bool isFalling;
+    public bool isAttacking;
     public bool isDying;
 
     // Game Control
