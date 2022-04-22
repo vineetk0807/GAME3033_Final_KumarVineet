@@ -6,7 +6,6 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyController : MonoBehaviour
 {
-
     public enum EnemyMeshRenderer
     {
         JOINTS,
@@ -18,7 +17,7 @@ public class EnemyController : MonoBehaviour
 
     [Header("Navigation Mesh Agent")]
     public NavMeshAgent agent;
-    public float stoppingDistance = 1;
+    public float agentSpeed = 9;
 
     [Header("Animations")] 
     private Animator _enemyAnimator;
@@ -26,7 +25,6 @@ public class EnemyController : MonoBehaviour
     public bool isFollowing = false;
 
     private CapsuleCollider _collider;
-    
 
     [Header("Shatter effect")]
     public GameObject ShatterEffectBotPrefab;
@@ -42,6 +40,8 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerLocation = GameObject.FindGameObjectWithTag("Player").transform;
+
         _enemyAnimator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
 
@@ -56,7 +56,28 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (isDestroyed)
+        {
+            return;
+        }
+
+
         agent.SetDestination(playerLocation.position);
+
+
+
+
+        if (GameManager.GetInstance().timeScaleFactor != 1.0f)
+        {
+            agent.speed = 1f;
+            _enemyAnimator.speed = 0.25f;
+        }
+        else
+        {
+            agent.speed = agentSpeed;
+            _enemyAnimator.speed = 1f;
+        }
     }
 
 
@@ -103,6 +124,7 @@ public class EnemyController : MonoBehaviour
     /// <returns></returns>
     IEnumerator DestroyCoroutine()
     {
+        GameManager.GetInstance().UpdateEnemyTakenCount();
         yield return new WaitForSeconds(2f);
         Destroy(shatteredXbot);
         Destroy(gameObject);

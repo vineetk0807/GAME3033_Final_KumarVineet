@@ -106,7 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerLocation: {fileID: 0}
   agent: {fileID: 0}
-  stoppingDistance: 0
+  agentSpeed: 9
   isFollowing: 0
   ShatterEffectBotPrefab: {fileID: 8125465113300785428, guid: 64314bae6c98bd44caf7a4249e6f7f90, type: 3}
   shatterForce: 500

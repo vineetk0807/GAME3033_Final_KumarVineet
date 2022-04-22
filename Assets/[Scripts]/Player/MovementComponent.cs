@@ -163,7 +163,7 @@ public class MovementComponent : MonoBehaviour
     /// <param name="value"></param>
     public void OnJump(InputValue value)
     {
-        if (_playerController.isFalling || _playerController.isDying || _playerController.isPaused)
+        if (_playerController.isFalling || _playerController.isUsing || _playerController.isPaused)
         {
             return;
         }
@@ -214,26 +214,6 @@ public class MovementComponent : MonoBehaviour
 
 
     /// <summary>
-    /// A Use function to interact if necessary
-    /// </summary>
-    /// <param name="value"></param>
-    public void OnUse(InputValue value)
-    {
-        if (_playerController.isFalling || _playerController.isDying)
-        {
-            return;
-        }
-        //
-        //if (_playerController.isUsing)
-        //{
-        //    return;
-        //}
-
-        _playerController.isUsing = true;
-    }
-
-
-    /// <summary>
     /// Look Input
     /// </summary>
     /// <param name="value"></param>
@@ -270,6 +250,11 @@ public class MovementComponent : MonoBehaviour
     /// <param name="value"></param>
     public void OnAttack(InputValue value)
     {
+        if (_playerController.isJumping)
+        {
+            return;
+        }
+
         if (isAttacking)
         {
             isAttacking = false;
@@ -329,11 +314,10 @@ public class MovementComponent : MonoBehaviour
             _playerAnimator.SetBool(isJumpingHash,_playerController.isJumping);
         }
 
-        //if (other.gameObject.CompareTag("Deathplane"))
-        //{
-        //    Debug.Log("Dead");
-        //    _playerController.isDying = true;
-        //   _playerAnimator.SetTrigger(isDyingHash);
-        //}
+        // Reset player position
+        if (other.gameObject.CompareTag("Deathplane"))
+        {
+            GameManager.GetInstance().ResetPlayerPosition(gameObject);
+        }
     }
 }

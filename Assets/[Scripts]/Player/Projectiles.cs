@@ -34,10 +34,9 @@ public class Projectiles : MonoBehaviour
             if (other.gameObject.CompareTag("Enemy"))
             {
                 other.gameObject.GetComponent<EnemyController>().DestroyEnemy();
+                isGoForDestroy = true;
+                destroyTimer = timer;
             }
-
-            isGoForDestroy = true;
-            destroyTimer = timer;
         }
     }
 
@@ -46,7 +45,7 @@ public class Projectiles : MonoBehaviour
     {
         if (gameObject.activeSelf)
         {
-            timer += Time.deltaTime;
+            timer += Time.deltaTime * GameManager.GetInstance().timeScaleFactor;
 
             if (timer > 4f)
             {
@@ -61,6 +60,17 @@ public class Projectiles : MonoBehaviour
                     Destroy(gameObject);
                 }
             }            
+        }
+
+        if (GameManager.GetInstance().timeScaleFactor != 1.0f)
+        {
+            var particleMainSettings = particleSystem.main;
+            particleMainSettings.simulationSpeed = 0.01f;
+        }
+        else
+        {
+            var particleMainSettings = particleSystem.main;
+            particleMainSettings.simulationSpeed = 1;
         }
     }
 }
