@@ -22,11 +22,15 @@ public class GameManager : MonoBehaviour
     public float timerCounter = 0f;
     public float maxTimer = 10f;
     public float timeScaleFactor = 1f;
+    public float slowTimeScaleFactor = 0.1f;
 
     [Header("UI")] 
     public TextMeshProUGUI TMP_Timer;
 
+    [Header("Slowed Down")] 
+    public bool isTimeSlowed = false;
 
+    public float slowTimeCounter = 0f;
 
     public int EnemiesTaken = 0;
     public PlayerController playerController;
@@ -56,6 +60,25 @@ public class GameManager : MonoBehaviour
             maxTimer = 0.0f;
             TMP_Timer.text = maxTimer.ToString();
         }
+
+
+        if (isTimeSlowed)
+        {
+            Start5SecondCounter();
+        }
+    }
+
+    private void Start5SecondCounter()
+    {
+        //if (slowTimeCounter < 5.0f)
+        //{
+        //    slowTimeCounter += Time.deltaTime;
+        //}
+        //else
+        //{
+        //    isTimeSlowed = false;
+        //    playerController.isUsing = false;
+        //}
     }
 
     /// <summary>
@@ -98,10 +121,46 @@ public class GameManager : MonoBehaviour
         player.transform.position = playerRespawnLocation.position;
     }
 
+    /// <summary>
+    /// Enemy taken count
+    /// </summary>
     public void UpdateEnemyTakenCount()
     {
-        EnemiesTaken += 1;
+        //if (!isTimeSlowed)
+        //{
+            EnemiesTaken += 1;
+            playerController.HitEnemy();
 
-        playerController.HitEnemy();
+            // if enemies taken is 5
+            if (EnemiesTaken == 5)
+            {
+                StartCoroutine(ActivateAmaterasu(true));
+                EnemiesTaken = 0;
+            }
+        //}
     }
+
+    /// <summary>
+    /// Stop 
+    /// </summary>
+    public void StopAmaterasu()
+    {
+        Debug.Log("Stopped");
+        timeScaleFactor = 1f;
+        isTimeSlowed = false;
+        StartCoroutine(ActivateAmaterasu(false));
+    }
+
+    /// <summary>
+    /// Activate coroutine for delay
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator ActivateAmaterasu(bool activate)
+    {
+        yield return new WaitForSeconds(0.2f);
+        playerController.isReady = activate;
+        playerController.ActivateAmaterasu.SetActive(activate);
+    }
+
+   
 }

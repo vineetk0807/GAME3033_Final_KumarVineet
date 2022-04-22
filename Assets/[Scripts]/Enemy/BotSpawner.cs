@@ -9,6 +9,8 @@ public class BotSpawner : MonoBehaviour
 
     public List<SpawnerVolume> spawnerVolumes;
 
+    public float spawnDelay = 1.5f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +18,11 @@ public class BotSpawner : MonoBehaviour
         foreach (var spawner in spawnerVolumes)
         {
             SpawnBot(spawner);
+        }
+
+        foreach (var spawner in spawnerVolumes)
+        {
+            StartCoroutine(SpawnBotCoroutine(spawner));
         }
     }
 
@@ -29,9 +36,14 @@ public class BotSpawner : MonoBehaviour
         Instantiate(BotPrefab, spawnerVolume.GetPositionInBounds(), spawnerVolume.transform.rotation);
     }
 
-    // Update is called once per frame
-    void Update()
+
+    IEnumerator SpawnBotCoroutine(SpawnerVolume spawnerVolume)
     {
+        while (GameManager.GetInstance().maxTimer > 0f)
+        {
+            yield return new WaitForSeconds(spawnDelay);
+            Instantiate(BotPrefab, spawnerVolume.GetPositionInBounds(), spawnerVolume.transform.rotation);
+        }
         
     }
 }

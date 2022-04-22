@@ -35,6 +35,10 @@ public class EnemyController : MonoBehaviour
     public List<SkinnedMeshRenderer> meshRenderer;
     public List<Material> meshMaterialsTransparent;
 
+    [Header("Slow Motion")] 
+    public float slowAgentSpeed = 1f;
+    public float slowAnimationRate = 0.25f;
+
     private bool isDestroyed = false;
 
     // Start is called before the first frame update
@@ -68,10 +72,10 @@ public class EnemyController : MonoBehaviour
 
 
 
-        if (GameManager.GetInstance().timeScaleFactor != 1.0f)
+        if (GameManager.GetInstance().isTimeSlowed)
         {
-            agent.speed = 1f;
-            _enemyAnimator.speed = 0.25f;
+            agent.speed = slowAgentSpeed;
+            _enemyAnimator.speed = slowAnimationRate;
         }
         else
         {

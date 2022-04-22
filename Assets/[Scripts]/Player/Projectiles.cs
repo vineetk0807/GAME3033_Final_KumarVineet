@@ -13,6 +13,9 @@ public class Projectiles : MonoBehaviour
     private bool isGoForDestroy = false;
     private float destroyTimer = 0f;
 
+    [Header("Slow motion speed")] 
+    public float slowMotionSimulationSpeed = 0.01f;
+
     private void Start()
     {
         particleSystem = GetComponent<ParticleSystem>();
@@ -30,7 +33,6 @@ public class Projectiles : MonoBehaviour
 
         for (int i = 0; i < numCollisionEvents; i++)
         {
-            Debug.Log(other.gameObject.name);
             if (other.gameObject.CompareTag("Enemy"))
             {
                 other.gameObject.GetComponent<EnemyController>().DestroyEnemy();
@@ -62,10 +64,10 @@ public class Projectiles : MonoBehaviour
             }            
         }
 
-        if (GameManager.GetInstance().timeScaleFactor != 1.0f)
+        if (GameManager.GetInstance().isTimeSlowed)
         {
             var particleMainSettings = particleSystem.main;
-            particleMainSettings.simulationSpeed = 0.01f;
+            particleMainSettings.simulationSpeed = slowMotionSimulationSpeed;
         }
         else
         {
