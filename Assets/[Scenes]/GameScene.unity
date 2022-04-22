@@ -2502,8 +2502,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1148221297}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -10, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1.49}
+  m_LocalPosition: {x: -10, y: 24.8, z: 0}
+  m_LocalScale: {x: 1, y: 13.054174, z: 1.49}
   m_Children: []
   m_Father: {fileID: 610718494}
   m_RootOrder: 3
@@ -2576,6 +2576,7 @@ MonoBehaviour:
   EnemiesTaken: 0
   playerController: {fileID: 2142585420}
   isGameOver: 0
+  enemiesKilled: 0
 --- !u!1 &1303116378
 GameObject:
   m_ObjectHideFlags: 0
@@ -2869,8 +2870,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1303116378}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -10, y: 0, z: 40.6}
-  m_LocalScale: {x: 1, y: 1, z: 1.49}
+  m_LocalPosition: {x: -10, y: 24.8, z: 40.6}
+  m_LocalScale: {x: 1, y: 13.054174, z: 1.49}
   m_Children: []
   m_Father: {fileID: 610718494}
   m_RootOrder: 2
@@ -4060,8 +4061,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1603744907}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 19.339998, y: 0, z: 20.04}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 19.339998, y: 24.8, z: 20.04}
+  m_LocalScale: {x: 1, y: 13.054174, z: 1}
   m_Children: []
   m_Father: {fileID: 610718494}
   m_RootOrder: 1
@@ -4813,8 +4814,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1959339262}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -38.8499, y: 0, z: 20.04}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -38.8499, y: 24.8, z: 20.04}
+  m_LocalScale: {x: 1, y: 13.054174, z: 1}
   m_Children: []
   m_Father: {fileID: 610718494}
   m_RootOrder: 0
@@ -5192,6 +5193,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1975652631, guid: 2c1a981aa9f916543a34e829089dc250, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975652631, guid: 2c1a981aa9f916543a34e829089dc250, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5882024279567607620, guid: 2c1a981aa9f916543a34e829089dc250, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -5249,19 +5258,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 16845487}
     - target: {fileID: 6551318290661768698, guid: 2c1a981aa9f916543a34e829089dc250, type: 3}
-      propertyPath: maxEnergy
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6551318290661768698, guid: 2c1a981aa9f916543a34e829089dc250, type: 3}
       propertyPath: GlobalVolume
       value: 
       objectReference: {fileID: 1852879221}
     - target: {fileID: 6551318290661768698, guid: 2c1a981aa9f916543a34e829089dc250, type: 3}
       propertyPath: ActivateAmaterasu
-      value: 
-      objectReference: {fileID: 865730126}
-    - target: {fileID: 6551318290661768698, guid: 2c1a981aa9f916543a34e829089dc250, type: 3}
-      propertyPath: ActivateAmeterasu
       value: 
       objectReference: {fileID: 865730126}
     - target: {fileID: 6551318290661768699, guid: 2c1a981aa9f916543a34e829089dc250, type: 3}

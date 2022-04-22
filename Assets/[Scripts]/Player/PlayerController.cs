@@ -41,6 +41,16 @@ public class PlayerController : MonoBehaviour
 
     public float distortDelay = 0.5f;
 
+
+    // Animations
+    [Header("Animations")]
+    public readonly int isUsingHash = Animator.StringToHash("IsUsing");
+
+    public SkinnedMeshRenderer EmiltyMeshRenderer;
+    public Material originalMat;
+    public Material abilityMat;
+    public GameObject abilityActivateVFX;
+
     private void Start()
     {
         currentEnergy = 0f;
@@ -136,6 +146,8 @@ public class PlayerController : MonoBehaviour
         {
             if (!isUsing)
             {
+                GetComponent<Animator>().SetTrigger(isUsingHash);
+
                 GameManager.GetInstance().timeScaleFactor = GameManager.GetInstance().slowTimeScaleFactor;
                 GameManager.GetInstance().isTimeSlowed = isUsing = true;
                 DrainEnergyBar();
@@ -192,4 +204,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// Public function to activate Mat
+    /// </summary>
+    public void AbilityUseMat()
+    {
+        abilityActivateVFX.SetActive(true);
+        EmiltyMeshRenderer.material = abilityMat;
+    }
+
+    /// <summary>
+    /// Public function to restore mat
+    /// </summary>
+    public void OriginalMat()
+    {
+        abilityActivateVFX.SetActive(false);
+        EmiltyMeshRenderer.material = originalMat;
+    }
 }

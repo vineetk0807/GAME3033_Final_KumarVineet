@@ -39,6 +39,9 @@ public class GameManager : MonoBehaviour
     private bool executeOnce = false;
     public bool isGameOver = false;
 
+    [Header("Enemies Killed")] 
+    public int enemiesKilled = 0;
+
     private void Awake()
     {
         _instance = this;
@@ -71,7 +74,7 @@ public class GameManager : MonoBehaviour
                     TMP_Timer.text = maxTimer.ToString();
                     DestroyAllEnemies();
 
-                   // StartCoroutine(GameOverCoroutine());
+                    StartCoroutine(GameOverCoroutine());
                 }
                 
             }
@@ -140,6 +143,13 @@ public class GameManager : MonoBehaviour
                 EnemiesTaken = 0;
             }
         }
+
+        // Game over check before updating killed enemies
+        if (!isGameOver)
+        {
+            enemiesKilled += 1;
+        }
+        
     }
 
     /// <summary>
@@ -178,6 +188,20 @@ public class GameManager : MonoBehaviour
         {
             enemy.DestroyEnemy();
         }
+    }
+
+    IEnumerator GameOverCoroutine()
+    {
+        playerController.currentEnergy = 0.0f;
+        playerController.EnergyBar.fillAmount = 0f;
+        playerController.ActivateAmaterasu.SetActive(false);
+
+        if (playerController.GlobalVolume.weight != 0)
+        {
+            playerController.SetGlobalVolumeWeight(0);
+        }
+
+        yield return new WaitForSeconds(2f);
     }
 
 }
