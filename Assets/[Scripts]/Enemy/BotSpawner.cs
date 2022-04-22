@@ -46,11 +46,14 @@ public class BotSpawner : MonoBehaviour
     {
         while (GameManager.GetInstance().maxTimer > 0f)
         {
-            yield return new WaitForSeconds(spawnDelay);
-
-            if (!(GameManager.GetInstance().maxTimer <= 0f))
+            if (!GameManager.GetInstance().isPaused)
             {
-                Instantiate(BotPrefab, spawnerVolume.GetPositionInBounds(), spawnerVolume.transform.rotation);
+                yield return new WaitForSeconds(spawnDelay);
+
+                if (!(GameManager.GetInstance().maxTimer <= 0f))
+                {
+                    Instantiate(BotPrefab, spawnerVolume.GetPositionInBounds(), spawnerVolume.transform.rotation);
+                }
             }
         }
     }

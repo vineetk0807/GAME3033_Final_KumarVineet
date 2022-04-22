@@ -220,10 +220,10 @@ public class MovementComponent : MonoBehaviour
     public void OnLook(InputValue value)
     {
         // if paused, do not execute
-        //if (_playerController.isPaused)
-        //{
-        //    return;
-        //}
+        if (_playerController.isPaused)
+        {
+            return;
+        }
 
         lookInput = value.Get<Vector2>();
     }
@@ -235,12 +235,26 @@ public class MovementComponent : MonoBehaviour
     /// <param name="value"></param>
     public void OnPause(InputValue value)
     {
-        //_playerController.isPaused = value.isPressed;
-        //inputVector = Vector2.zero;
-        //lookInput = Vector2.zero;
-        ////GameManager.GetInstance().pausePanel.SetActive(true);
-        //Time.timeScale = 0f;
-        //Cursor.visible = true;
+        if (_playerController.isPaused)
+        {
+            _playerController.isPaused = false;
+            Time.timeScale = 1f;
+            GameManager.GetInstance().PausePanel.SetActive(false);
+            GameManager.GetInstance().GameUI.SetActive(true);
+        }
+        else
+        {
+            _playerController.isPaused = true;
+            inputVector = Vector2.zero;
+            lookInput = Vector2.zero;
+            Time.timeScale = 0f;
+            GameManager.GetInstance().PausePanel.SetActive(true);
+            GameManager.GetInstance().GameUI.SetActive(false);
+        }
+
+        GameManager.GetInstance().isPaused = _playerController.isPaused;
+        GameManager.GetInstance().SetCursorState(GameManager.GetInstance().isPaused);
+
     }
 
 

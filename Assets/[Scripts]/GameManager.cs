@@ -26,8 +26,9 @@ public class GameManager : MonoBehaviour
     public float slowTimeScaleFactor = 0.1f;
     public bool timerTriggered = false;
 
-    [Header("UI")] 
+    [Header("UI Timer")] 
     public TextMeshProUGUI TMP_Timer;
+    
 
     [Header("Slowed Down")] 
     public bool isTimeSlowed = false;
@@ -45,11 +46,19 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI TMP_BotsDestroy;
 
+
+    [Header("Pause")]
+    public GameObject GameUI;
+    public GameObject PausePanel;
+    public bool isPaused = false;
+
+
     private void Awake()
     {
         _instance = this;
         SetCursorState(false);
         timerCounter = maxTimer;
+        Data.ResetData();
     }
 
 
@@ -195,6 +204,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+
+    /// <summary>
+    /// Resume function
+    /// </summary>
+    public void Resume()
+    {
+        playerController.isPaused = isPaused = false;
+        Time.timeScale = 1f;
+        PausePanel.SetActive(false);
+        GameUI.SetActive(true);
+        SetCursorState(isPaused);
+    }
+
+
+    /// <summary>
+    /// Game Over Coroutine
+    /// </summary>
+    /// <returns></returns>
     IEnumerator GameOverCoroutine()
     {
         playerController.currentEnergy = 0.0f;
@@ -208,7 +236,7 @@ public class GameManager : MonoBehaviour
 
 
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
 
 
         // Change scene

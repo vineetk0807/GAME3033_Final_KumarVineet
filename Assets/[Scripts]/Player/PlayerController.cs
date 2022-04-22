@@ -45,15 +45,20 @@ public class PlayerController : MonoBehaviour
     // Animations
     [Header("Animations")]
     public readonly int isUsingHash = Animator.StringToHash("IsUsing");
-
     public SkinnedMeshRenderer EmiltyMeshRenderer;
     public Material originalMat;
     public Material abilityMat;
     public GameObject abilityActivateVFX;
 
+    [Header("Sounds")] 
+    public AudioClip EmilyTimeManipulationAbility;
+
+    private AudioSource _audioSource;
+
     private void Start()
     {
         currentEnergy = 0f;
+        _audioSource = GetComponent<AudioSource>();
     }
 
     
@@ -154,6 +159,9 @@ public class PlayerController : MonoBehaviour
                 
                 // Lens
                 SetGlobalVolumeWeight(1);
+
+                _audioSource.clip = EmilyTimeManipulationAbility;
+                _audioSource.Play();
             }
         }
     }
