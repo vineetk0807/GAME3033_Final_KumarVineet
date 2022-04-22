@@ -70,17 +70,13 @@ public class PlayerController : MonoBehaviour
             currentEnergy = Mathf.Clamp(currentEnergy, 0, maxEnergy);
             EnergyBar.fillAmount = currentEnergy;
 
-            isUpdatingEnergyBar = true;
-
             lerpSpeed = 1f;
         }
         else
         {
-            energyBeforeHit = currentEnergy = EnergyBar.fillAmount;
-            currentEnergy += 0.2f;
-
-            currentEnergy = Mathf.Clamp(currentEnergy, 0, maxEnergy);
-            isUpdatingEnergyBar = true;
+            //energyBeforeHit = EnergyBar.fillAmount += 0.05f;
+            //lerpEnergy = 0f;
+            //lerpSpeed = 0.2f;
         }
     }
 

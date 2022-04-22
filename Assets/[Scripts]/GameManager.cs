@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public float maxTimer = 10f;
     public float timeScaleFactor = 1f;
     public float slowTimeScaleFactor = 0.1f;
+    public bool timerTriggered = false;
 
     [Header("UI")] 
     public TextMeshProUGUI TMP_Timer;
@@ -35,6 +36,8 @@ public class GameManager : MonoBehaviour
     public int EnemiesTaken = 0;
     public PlayerController playerController;
 
+    private bool executeOnce = false;
+
     private void Awake()
     {
         _instance = this;
@@ -45,40 +48,30 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        // Time adjuster
-        timerCounter -= Time.deltaTime * timeScaleFactor;
-        if (maxTimer > 0)
+        if (timerTriggered)
         {
-            maxTimer = timerCounter;
+            // Time adjuster
+            timerCounter -= Time.deltaTime * timeScaleFactor;
+            if (maxTimer > 0)
+            {
+                maxTimer = timerCounter;
 
-            maxTimer = Mathf.Round(maxTimer * 1000f) / 1000f;
-            
-            TMP_Timer.text = maxTimer.ToString();
+                maxTimer = Mathf.Round(maxTimer * 1000f) / 1000f;
+
+                TMP_Timer.text = maxTimer.ToString();
+            }
+            else
+            {
+                if (!executeOnce)
+                {
+                    executeOnce = true;
+                    maxTimer = 0.0f;
+                    TMP_Timer.text = maxTimer.ToString();
+                    DestroyAllEnemies();
+                }
+                
+            }
         }
-        else
-        {
-            maxTimer = 0.0f;
-            TMP_Timer.text = maxTimer.ToString();
-        }
-
-
-        if (isTimeSlowed)
-        {
-            Start5SecondCounter();
-        }
-    }
-
-    private void Start5SecondCounter()
-    {
-        //if (slowTimeCounter < 5.0f)
-        //{
-        //    slowTimeCounter += Time.deltaTime;
-        //}
-        //else
-        //{
-        //    isTimeSlowed = false;
-        //    playerController.isUsing = false;
-        //}
     }
 
     /// <summary>
@@ -126,8 +119,13 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void UpdateEnemyTakenCount()
     {
-        //if (!isTimeSlowed)
-        //{
+        if (!timerTriggered)
+        {
+            timerTriggered = true;
+        }
+        
+        if (!isTimeSlowed)
+        {
             EnemiesTaken += 1;
             playerController.HitEnemy();
 
@@ -137,7 +135,7 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(ActivateAmaterasu(true));
                 EnemiesTaken = 0;
             }
-        //}
+        }
     }
 
     /// <summary>
@@ -145,7 +143,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void StopAmaterasu()
     {
-        Debug.Log("Stopped");
         timeScaleFactor = 1f;
         isTimeSlowed = false;
         StartCoroutine(ActivateAmaterasu(false));
@@ -162,5 +159,18 @@ public class GameManager : MonoBehaviour
         playerController.ActivateAmaterasu.SetActive(activate);
     }
 
-   
+
+    /// <summary>
+    /// Destroys all enemies
+    /// </summary>
+    private void DestroyAllEnemies()
+    {
+        EnemyController[] allEnemies = FindObjectsOfType<EnemyController>();
+
+        foreach (var enemy in allEnemies)
+        {
+            enemy.DestroyEnemy();
+        }
+    }
+
 }

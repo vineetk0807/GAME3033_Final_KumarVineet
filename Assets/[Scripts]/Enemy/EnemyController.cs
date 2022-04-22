@@ -108,15 +108,18 @@ public class EnemyController : MonoBehaviour
 
         // disable the main collider
         _collider.enabled = false;
-
-        // Instantiate the shattered xbot
-        shatteredXbot = Instantiate(ShatterEffectBotPrefab, transform.position, transform.rotation);
-
-        // add 
-        foreach (var rb in shatteredXbot.GetComponentsInChildren<Rigidbody>())
+        if (GameManager.GetInstance().maxTimer > 0f)
         {
-            Vector3 force = (rb.position - transform.position).normalized * shatterForce;
-            rb.AddForce(force);
+            // Instantiate the shattered xbot
+            shatteredXbot = Instantiate(ShatterEffectBotPrefab, transform.position, transform.rotation);
+
+       
+            // add force
+            foreach (var rb in shatteredXbot.GetComponentsInChildren<Rigidbody>())
+            {
+                Vector3 force = (rb.position - transform.position).normalized * shatterForce;
+                rb.AddForce(force);
+            }
         }
 
         StartCoroutine(DestroyCoroutine());
@@ -130,7 +133,17 @@ public class EnemyController : MonoBehaviour
     {
         GameManager.GetInstance().UpdateEnemyTakenCount();
         yield return new WaitForSeconds(2f);
-        Destroy(shatteredXbot);
-        Destroy(gameObject);
+
+        // Safety checks
+
+        if (shatteredXbot)
+        {
+            Destroy(shatteredXbot);
+        }
+
+        if (gameObject)
+        {
+            Destroy(gameObject);
+        }
     }
 }
