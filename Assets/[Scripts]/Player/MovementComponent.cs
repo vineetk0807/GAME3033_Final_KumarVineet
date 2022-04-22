@@ -250,6 +250,13 @@ public class MovementComponent : MonoBehaviour
     /// <param name="value"></param>
     public void OnAttack(InputValue value)
     {
+
+        if (GameManager.GetInstance().isGameOver)
+        {
+            return;
+        }
+
+
         if (_playerController.isJumping)
         {
             return;
@@ -285,7 +292,6 @@ public class MovementComponent : MonoBehaviour
     public void SpawnProjectile()
     {
         GameObject bullet = Instantiate(Projectile, ProjectileSpawnLocation.position, ProjectileSpawnLocation.rotation);
-
     }
 
 

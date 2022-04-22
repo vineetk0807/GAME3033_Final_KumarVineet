@@ -108,12 +108,13 @@ public class EnemyController : MonoBehaviour
 
         // disable the main collider
         _collider.enabled = false;
-        if (GameManager.GetInstance().maxTimer > 0f)
+
+        // Check if game is over
+        if (!GameManager.GetInstance().isGameOver)
         {
             // Instantiate the shattered xbot
             shatteredXbot = Instantiate(ShatterEffectBotPrefab, transform.position, transform.rotation);
 
-       
             // add force
             foreach (var rb in shatteredXbot.GetComponentsInChildren<Rigidbody>())
             {
@@ -122,6 +123,7 @@ public class EnemyController : MonoBehaviour
             }
         }
 
+        // Start the destroy coroutine
         StartCoroutine(DestroyCoroutine());
     }
 

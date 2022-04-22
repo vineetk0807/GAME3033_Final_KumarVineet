@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     public PlayerController playerController;
 
     private bool executeOnce = false;
+    public bool isGameOver = false;
 
     private void Awake()
     {
@@ -65,6 +66,7 @@ public class GameManager : MonoBehaviour
                 if (!executeOnce)
                 {
                     executeOnce = true;
+                    isGameOver = true;
                     maxTimer = 0.0f;
                     TMP_Timer.text = maxTimer.ToString();
                     DestroyAllEnemies();
