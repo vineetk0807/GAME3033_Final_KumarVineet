@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -82,6 +83,17 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            if (gameObject)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
 
     /// <summary>
     /// Destroy Enemy

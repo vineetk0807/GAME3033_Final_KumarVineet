@@ -37,6 +37,11 @@ public class BotSpawner : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Spawn Bot
+    /// </summary>
+    /// <param name="spawnerVolume"></param>
+    /// <returns></returns>
     IEnumerator SpawnBotCoroutine(SpawnerVolume spawnerVolume)
     {
         while (GameManager.GetInstance().maxTimer > 0f)

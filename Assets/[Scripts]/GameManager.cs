@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -39,8 +40,10 @@ public class GameManager : MonoBehaviour
     private bool executeOnce = false;
     public bool isGameOver = false;
 
-    [Header("Enemies Killed")] 
-    public int enemiesKilled = 0;
+    [Header("Bots Killed")] 
+    public int botsKilled = 0;
+
+    public TextMeshProUGUI TMP_BotsDestroy;
 
     private void Awake()
     {
@@ -147,7 +150,9 @@ public class GameManager : MonoBehaviour
         // Game over check before updating killed enemies
         if (!isGameOver)
         {
-            enemiesKilled += 1;
+            botsKilled += 1;
+            TMP_BotsDestroy.text = botsKilled.ToString();
+            Data.BotsDestroyed = botsKilled;
         }
         
     }
@@ -201,7 +206,13 @@ public class GameManager : MonoBehaviour
             playerController.SetGlobalVolumeWeight(0);
         }
 
+
+
         yield return new WaitForSeconds(2f);
+
+
+        // Change scene
+        SceneManager.LoadScene((int)EnumScenes.END);
     }
 
 }
