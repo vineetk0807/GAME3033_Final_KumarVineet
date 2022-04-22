@@ -2569,11 +2569,13 @@ MonoBehaviour:
   maxTimer: 10
   timeScaleFactor: 1
   slowTimeScaleFactor: 0.1
+  timerTriggered: 0
   TMP_Timer: {fileID: 26760770}
   isTimeSlowed: 0
   slowTimeCounter: 0
   EnemiesTaken: 0
   playerController: {fileID: 2142585420}
+  isGameOver: 0
 --- !u!1 &1303116378
 GameObject:
   m_ObjectHideFlags: 0
@@ -5250,6 +5252,10 @@ PrefabInstance:
       propertyPath: maxEnergy
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6551318290661768698, guid: 2c1a981aa9f916543a34e829089dc250, type: 3}
+      propertyPath: GlobalVolume
+      value: 
+      objectReference: {fileID: 1852879221}
     - target: {fileID: 6551318290661768698, guid: 2c1a981aa9f916543a34e829089dc250, type: 3}
       propertyPath: ActivateAmaterasu
       value: 

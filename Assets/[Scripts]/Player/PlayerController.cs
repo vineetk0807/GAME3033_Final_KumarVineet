@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     // Game Control
     public bool isPaused;
 
+    [Header("Energy")]
     public float currentEnergy;
     public float maxEnergy = 1f;
     public float energyBeforeHit;
@@ -28,10 +30,16 @@ public class PlayerController : MonoBehaviour
     public float lerpSpeed = 1f;
     public float tempEnergy;
     public bool isReady = false;
-
     public Image EnergyBar;
 
     public GameObject ActivateAmaterasu;
+
+
+    [Header("Lens")]
+    // Special Effect of Lens
+    public Volume GlobalVolume;
+
+    public float distortDelay = 0.5f;
 
     private void Start()
     {
@@ -131,7 +139,56 @@ public class PlayerController : MonoBehaviour
                 GameManager.GetInstance().timeScaleFactor = GameManager.GetInstance().slowTimeScaleFactor;
                 GameManager.GetInstance().isTimeSlowed = isUsing = true;
                 DrainEnergyBar();
+                
+                // Lens
+                SetGlobalVolumeWeight(1);
             }
+        }
+    }
+
+
+    /// <summary>
+    /// Smooth lens distortion fn
+    /// </summary>
+    /// <param name="weight"></param>
+    public void SetGlobalVolumeWeight(int weight)
+    {
+        StartCoroutine(GlobalVolWtCoroutine(weight));
+    }
+
+    /// <summary>
+    /// Smooth lens distortion coroutine
+    /// </summary>
+    /// <param name="weight"></param>
+    /// <returns></returns>
+    private IEnumerator GlobalVolWtCoroutine(int weight)
+    {
+        float timer = 0.0f;
+        // Distort lens
+        if (weight == 1)
+        {
+            while (timer < distortDelay)
+            {
+                timer += Time.deltaTime;
+
+                GlobalVolume.weight = (Mathf.SmoothStep(0f, 1f, timer / distortDelay));
+                yield return new WaitForEndOfFrame();
+            }
+
+            GlobalVolume.weight = 1f;
+
+        }
+        else
+        {
+            while (timer < distortDelay)
+            {
+                timer += Time.deltaTime;
+
+                GlobalVolume.weight = (Mathf.SmoothStep(1f, 0f, timer / distortDelay));
+                yield return new WaitForEndOfFrame();
+            }
+
+            GlobalVolume.weight = 0f;
         }
     }
 

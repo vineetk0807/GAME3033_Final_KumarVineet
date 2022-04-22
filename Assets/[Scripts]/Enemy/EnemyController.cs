@@ -70,8 +70,6 @@ public class EnemyController : MonoBehaviour
         agent.SetDestination(playerLocation.position);
 
 
-
-
         if (GameManager.GetInstance().isTimeSlowed)
         {
             agent.speed = slowAgentSpeed;

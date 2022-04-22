@@ -70,6 +70,8 @@ public class GameManager : MonoBehaviour
                     maxTimer = 0.0f;
                     TMP_Timer.text = maxTimer.ToString();
                     DestroyAllEnemies();
+
+                   // StartCoroutine(GameOverCoroutine());
                 }
                 
             }
@@ -147,6 +149,9 @@ public class GameManager : MonoBehaviour
     {
         timeScaleFactor = 1f;
         isTimeSlowed = false;
+
+        // Lens
+        playerController.SetGlobalVolumeWeight(0);
         StartCoroutine(ActivateAmaterasu(false));
     }
 
