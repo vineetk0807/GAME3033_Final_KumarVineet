@@ -265,7 +265,7 @@ public class MovementComponent : MonoBehaviour
     public void OnAttack(InputValue value)
     {
 
-        if (GameManager.GetInstance().isGameOver)
+        if (GameManager.GetInstance().isGameOver || GameManager.GetInstance().isPaused)
         {
             return;
         }
