@@ -18,12 +18,18 @@ public class MenuScene : MonoBehaviour
     public TextMeshProUGUI TMP_Story;
     public float secondsPerCharacter = 0.1f;
 
+    [Header("Sounds")] 
+    private AudioSource menuAudioSource;
+
+
     private void Start()
     {
         MainPanel.SetActive(true);
         CreditsPanel.SetActive(false);
         InstructionsPanel.SetActive(false);
         StartCoroutine(AnimateTextCoroutine(Story));
+        menuAudioSource = GetComponent<AudioSource>();
+
     }
 
     /// <summary>
@@ -31,6 +37,7 @@ public class MenuScene : MonoBehaviour
     /// </summary>
     public void Button_StartButton()
     {
+        menuAudioSource.Play();
         SceneManager.LoadScene((int)EnumScenes.GAME);
     }
 
@@ -39,6 +46,7 @@ public class MenuScene : MonoBehaviour
     /// </summary>
     public void Button_InstructionsButton()
     {
+        menuAudioSource.Play();
         MainPanel.SetActive(false);
         CreditsPanel.SetActive(false);
         InstructionsPanel.SetActive(true);
@@ -49,6 +57,7 @@ public class MenuScene : MonoBehaviour
     /// </summary>
     public void Button_CreditsButton()
     {
+        menuAudioSource.Play();
         MainPanel.SetActive(false);
         CreditsPanel.SetActive(true);
         InstructionsPanel.SetActive(false);
@@ -59,8 +68,9 @@ public class MenuScene : MonoBehaviour
     /// </summary>
     public void Button_ExitButton()
     {
+        menuAudioSource.Play();
         #if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
+            UnityEditor.EditorApplication.isPlaying = false;
         #else
                 Application.Quit();
         #endif
@@ -72,6 +82,7 @@ public class MenuScene : MonoBehaviour
     /// </summary>
     public void Button_BackButton()
     {
+        menuAudioSource.Play();
         MainPanel.SetActive(true);
         CreditsPanel.SetActive(false);
         InstructionsPanel.SetActive(false);
