@@ -13,9 +13,14 @@ public class EndScene : MonoBehaviour
     private string resultsSuccess = "Training Simulation Results: Successful";
     private string resultsOP = "Training Simulation Results: Groundbreaking";
 
+    [Header("Sounds")]
+    private AudioSource endAudioSource;
+
     // Start is called before the first frame update
     void Start()
     {
+        endAudioSource = GetComponent<AudioSource>();
+
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
@@ -41,6 +46,7 @@ public class EndScene : MonoBehaviour
     /// </summary>
     public void Button_Retry()
     {
+        endAudioSource.Play();
         SceneManager.LoadScene((int)EnumScenes.GAME);
     }
 
@@ -49,6 +55,7 @@ public class EndScene : MonoBehaviour
     /// </summary>
     public void Button_MainMenu()
     {
+        endAudioSource.Play();
         SceneManager.LoadScene((int)EnumScenes.MENU);
     }
 
@@ -57,6 +64,7 @@ public class EndScene : MonoBehaviour
     /// </summary>
     public void Button_Exit()
     {
+        endAudioSource.Play();
         #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
         #else

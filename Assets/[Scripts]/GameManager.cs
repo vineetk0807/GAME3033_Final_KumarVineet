@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        Time.timeScale = 1f;
         _instance = this;
         SetCursorState(false);
         timerCounter = maxTimer;

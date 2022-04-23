@@ -16,11 +16,16 @@ public class Projectiles : MonoBehaviour
     [Header("Slow motion speed")] 
     public float slowMotionSimulationSpeed = 0.01f;
 
+    [Header("Audio")] 
+    private AudioSource audioSource;
+    
+
     private void Start()
     {
         particleSystem = GetComponent<ParticleSystem>();
         collisionEvents = new List<ParticleCollisionEvent>();
         particleSystem.Play();
+        audioSource = GetComponent<AudioSource>();
     }
 
     /// <summary>
