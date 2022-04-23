@@ -1330,59 +1330,22 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Credits Panel
-
-    Game developed by Vineet Kumar using the Unity Engine.
-
-    Professor:
-    Nicholas Falsitta
-
-
-
-    The credits for art, animation, font, and sound are
-    given below:
-
-
-    ### Art ###
-
-    Glow Circle by oglsdl: https://opengameart.org/content/glow-circle
-
-    Ability
+  m_text: "Credits Panel:\n\r\nGame developed by Vineet Kumar using the Unity Engine
+    for Final Exam Game Jam.\r\nProfessor: Nicholas Falsitta\r\n\r\nThe credits for
+    art, animation, font, and sound are given below:\r\n\n### Art ###\r\n\nCharacters
+    and Animations from Adobe\u2019s mixamo.com\r\nGlow Circle: by oglsdl from opengameart.org\r\nAbility
     Activated Symbol (Sharingan eye symbol): copyrighted by NARUTO 1999 by Masashi
-    Kishimoto/SHUEISHA Inc.
-
-    Buttons by 3d.rina: https://assetstore.unity.com/packages/2d/gui/sci-fi-gui-skin-15606
-
-
-    ###
-    Fonts ###
-
-    Distortion by Geronimo Fonts: https://www.1001freefonts.com/designer-geronimo-fonts-fontlisting.php
-
-    Distortion
-    Dos Digital by Chequered Ink: https://www.1001freefonts.com/distortion-dos-digital.font
-
-    Ubuntu
-    by Dalton Maag: https://www.1001freefonts.com/ubuntu.font
-
-
-
-    ### Sounds ###
-
-    Emily
-    Ability Activate: https://www.soundsnap.com/emote_emma_woman_anger_fight_grunt_huge_wav
-
-
-
-
-
-
-
-
-
-
-
-'
+    Kishimoto/SHUEISHA Inc.\r\nButtons: by 3d.rina Unity Asset Store\r\n\n### Fonts
+    ###\r\n\nDistortion: by Geronimo Fonts from 1001freefonts.com\r\nDistortion Dos
+    Digital: by Chequered Ink from 1001freefonts.com\r\nUbuntu: by Dalton Maag from
+    1001freefonts.com\r\nAntaro: by Eldamar Studio from 1001freefonts.com\r\n\r\n###
+    Sounds ###\r\n\nMain Menu Music: by Fato_Shadow from opengameart.org\r\nGameplay
+    Music: by Alexandr Zhelanov from opengameart.org\r\nEnd Scene Music: Steins;
+    Gate - Toki Tsukasadoru Juuni no Meiyaku by PHANTASM (ft. Yui Sakakibara), published
+    by 5pb. Inc, Frontier Works Inc. No copyright infringement intended as this was
+    only for educational purposes.\r\r\nEmily Ability Activate: from soundsnap.com/\r\nButton
+    Click: by eyenorth from freesound.org Bot Shatter: by spookeymodem from opengameart.org\r\nProjectile
+    Sound: by Bart K. from opengameart.org\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e5876b6e80410524f979e901c6bcf290, type: 2}
   m_sharedMaterial: {fileID: -8324037672288319026, guid: e5876b6e80410524f979e901c6bcf290, type: 2}
@@ -2081,8 +2044,8 @@ RectTransform:
   m_Father: {fileID: 743914703}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.67489994}
-  m_AnchorMax: {x: 1, y: 0.99999994}
+  m_AnchorMin: {x: 0, y: 0.6749}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4351,7 +4314,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1035238616}
   m_HandleRect: {fileID: 1035238615}
   m_Direction: 2
-  m_Value: 0.9999999
+  m_Value: 1
   m_Size: 0.3251
   m_NumberOfSteps: 0
   m_OnValueChanged:
