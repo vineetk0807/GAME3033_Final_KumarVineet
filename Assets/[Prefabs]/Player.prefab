@@ -1950,6 +1950,7 @@ MonoBehaviour:
   FollowTarget: {fileID: 6209228687881745513}
   Projectile: {fileID: 5603397498279569023, guid: de6b982477a312648802fe002fd51ed4, type: 3}
   ProjectileSpawnLocation: {fileID: 6209228686744169861}
+  ProjectileAudioClip: {fileID: 8300000, guid: cdd245f1385201546b858efc9a0d0996, type: 3}
 --- !u!114 &6551318290661768698
 MonoBehaviour:
   m_ObjectHideFlags: 0

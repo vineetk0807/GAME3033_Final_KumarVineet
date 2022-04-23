@@ -53,6 +53,8 @@ public class MovementComponent : MonoBehaviour
     public readonly int isAttackingHash = Animator.StringToHash("IsAttacking");
     public readonly int isDyingHash = Animator.StringToHash("IsDying");
 
+    [Header("Audio")]
+    public AudioClip ProjectileAudioClip;
 
     // Executions
     private Vector2 inputVector = Vector2.zero;
@@ -286,6 +288,7 @@ public class MovementComponent : MonoBehaviour
 
         if (isAttacking)
         {
+            GameManager.GetInstance().PlayAudio(ProjectileAudioClip);
             StartAttack();
         }
     }

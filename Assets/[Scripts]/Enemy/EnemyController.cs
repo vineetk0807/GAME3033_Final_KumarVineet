@@ -42,6 +42,9 @@ public class EnemyController : MonoBehaviour
 
     private bool isDestroyed = false;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,6 +59,8 @@ public class EnemyController : MonoBehaviour
         _enemyAnimator.SetBool(isFollowingHash,true);
 
         _collider = GetComponent<CapsuleCollider>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -131,6 +136,8 @@ public class EnemyController : MonoBehaviour
                 Vector3 force = (rb.position - transform.position).normalized * shatterForce;
                 rb.AddForce(force);
             }
+
+            audioSource.Play();
         }
 
         // Start the destroy coroutine

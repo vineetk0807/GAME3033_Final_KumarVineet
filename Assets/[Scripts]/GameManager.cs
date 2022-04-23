@@ -52,6 +52,11 @@ public class GameManager : MonoBehaviour
     public GameObject PausePanel;
     public bool isPaused = false;
 
+    [Header("Audio")] 
+    private AudioSource audioSource;
+
+    public AudioClip audioClip;
+
 
     private void Awake()
     {
@@ -59,6 +64,7 @@ public class GameManager : MonoBehaviour
         SetCursorState(false);
         timerCounter = maxTimer;
         Data.ResetData();
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -241,6 +247,17 @@ public class GameManager : MonoBehaviour
 
         // Change scene
         SceneManager.LoadScene((int)EnumScenes.END);
+    }
+
+
+    /// <summary>
+    /// Plays any clip passed to it
+    /// </summary>
+    /// <param name="clip"></param>
+    public void PlayAudio(AudioClip clip)
+    {
+        audioSource.clip = clip;
+        audioSource.Play();
     }
 
 }
